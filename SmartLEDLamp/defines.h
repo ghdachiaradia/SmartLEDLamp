@@ -2,7 +2,7 @@
 #define DEFINES_H_
 
 // Comment next line to disable IR code if you don't use an IR receiver
-#define IR_ENABLE
+//#define IR_ENABLE
 
 #define UDP_PORT 6789
 
@@ -13,10 +13,10 @@
 #define PIN_RECV_IR D3
 #endif
 
-#define PIN_CLOCK D1
-#define PIN_DATA D2
+#define PIN_CLOCK 5
+#define PIN_DATA 4
 
-#define STRIP_RGB_ORDER RBG
+#define STRIP_RGB_ORDER RGB
 #define STRIP_CHIPSET WS2801
 
 #define BTN_BRIGHTER 1
