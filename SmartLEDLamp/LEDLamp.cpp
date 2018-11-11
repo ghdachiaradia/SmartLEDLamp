@@ -90,6 +90,7 @@ long lastSensorBurstRead = 0;
 long lastMillis = 0;
 
 void onButton(uint8_t btn);
+void onColor(int color1Rgb, int color2Rgb, int color3Rgb);
 void update();
 void switchApp(App* pApp);
 void writeConfiguration();
@@ -146,6 +147,21 @@ void handleAction() {
 		if (btnNo >= 0) {
 			onButton((uint8_t) btnNo);
 		}
+	}
+
+	String colorParameter = server.arg("color");
+	if (colorParameter.length() != 0) {
+		int color1Offset = colorParameter.indexOf(",");
+		int color2Offset = colorParameter.indexOf(",", color1Offset + 1);
+
+		int color1 = colorParameter.substring(0, color1Offset).toInt();
+		int color2 = colorParameter.substring(color1Offset + 1, color2Offset).toInt();
+		int color3 = colorParameter.substring(color2Offset + 1, colorParameter.length()).toInt();
+
+		Logger.debug("Received Color 1 '%i'", color1);
+		Logger.debug("Received Color 2 '%i'", color2);
+		Logger.debug("Received Color 3 '%i'", color3);
+		onColor(color1, color2, color3);
 	}
 
 	String brightness = server.arg("brightness");
@@ -640,6 +656,12 @@ void onButton(uint8_t btn) {
 		break;
 	}
 
+}
+
+void onColor(int color1Hsv, int color2Hsv, int color3Hsv) {
+	if (pCurrentApp) {
+		pCurrentApp->setColor(color1Hsv * 0.698, color2Hsv * 0.698, color3Hsv * 0.698);
+	}
 }
 
 void readAnalogPeek() {

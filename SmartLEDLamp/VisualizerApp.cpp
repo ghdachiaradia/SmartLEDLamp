@@ -29,6 +29,14 @@ void VisualizerApp::stop() {
 	}
 }
 
+void VisualizerApp::setColor(int color1Hsv, int color2Hsv, int color3Hsv) {
+	for (int i = 0; i < 2; ++i) {
+		if (visualizers[i]) {
+			visualizers[i]->setColor(color1Hsv, color2Hsv, color3Hsv);
+		}
+	}
+}
+
 boolean VisualizerApp::onButtonPressed(uint8_t button) {
 	boolean handled = false;
 

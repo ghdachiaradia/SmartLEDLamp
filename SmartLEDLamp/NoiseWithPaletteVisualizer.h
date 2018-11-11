@@ -14,6 +14,7 @@ public:
 
 	virtual void start();
 	virtual void stop();
+	virtual void setColor(int color1Hsv, int color2Hsv, int color3Hsv);
 
 	virtual boolean onButtonPressed(uint8_t button);
 

@@ -10,6 +10,7 @@ public:
 	virtual ~VisualizerApp();
 
 	virtual void start();
+	virtual void setColor(int color1Hsv, int color2Hsv, int color3Hsv);
 	virtual void run();
 	virtual void update();
 	virtual void stop();

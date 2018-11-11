@@ -12,6 +12,9 @@ public:
 	virtual void start() {
 	}
 
+	virtual void setColor(int color1Hsv, int color2Hsv, int color3Hsv) {
+	}
+
 	virtual void stop() {
 	}
 

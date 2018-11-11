@@ -177,6 +177,16 @@ void NoiseWithPaletteVisualizer::start() {
 void NoiseWithPaletteVisualizer::stop() {
 }
 
+void NoiseWithPaletteVisualizer::setColor(int color1Hsv, int color2Hsv, int color3Hsv) {
+	CRGB black = CRGB::Black;
+	CRGB color1 = CHSV(color1Hsv, 255, 255);
+	CRGB clor2 = CHSV(color2Hsv, 255, 255);
+	CRGB color3 = CHSV(color3Hsv, 255, 255);
+	currentPalette = CRGBPalette16(
+			color1, color1, black, black, clor2, clor2, black, color3,
+			color1, color1, black, black, clor2, clor2, black, color3);
+}
+
 boolean NoiseWithPaletteVisualizer::onButtonPressed(uint8_t button) {
 	boolean handled = false;
 
