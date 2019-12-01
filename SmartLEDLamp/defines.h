@@ -13,8 +13,8 @@
 #define PIN_RECV_IR D3
 #endif
 
-#define PIN_CLOCK 5
-#define PIN_DATA 4
+#define PIN_CLOCK D2
+#define PIN_DATA D1
 
 #define STRIP_RGB_ORDER RGB
 #define STRIP_CHIPSET WS2801

@@ -27,6 +27,7 @@
 #include "DemoReelVisualizer.h"
 #include "VUMeterVisualizer.h"
 #include "NoiseWithPaletteVisualizer.h"
+#include "GlowVisualizer.h"
 #include "Runnable.h"
 #include "TurnOnRunnable.h"
 #include "TurnOffRunnable.h"
@@ -65,6 +66,8 @@ VisualizerApp* pVisApp2;
 VisualizerApp* pVisApp3;
 VisualizerApp* pVisApp4;
 VisualizerApp* pVisApp5;
+VisualizerApp* pVisApp6;
+
 
 Runnable* pCurrentRunnable = NULL;
 
@@ -394,6 +397,10 @@ void setup() {
 	pVisApp5 = new VisualizerApp(&matrix);
 	pVisApp5->setVisualizer(0, new NoiseWithPaletteVisualizer());
 
+	pVisApp6 = new VisualizerApp(&matrix);
+	pVisApp6->setVisualizer(0, new GlowVisualizer());
+
+
 	switchApp(NULL);
 
 #ifdef IR_ENABLE
@@ -652,7 +659,8 @@ void onButton(uint8_t btn) {
 		switchApp(pVisApp3);
 		break;
 	case BTN_FADE7:
-		switchApp(pVisApp4);
+		//switchApp(pVisApp4);
+		switchApp(pVisApp6);
 		break;
 	}
 
