@@ -17,5 +17,5 @@ C:\Users\dchiarad\.arduinocdt\packages\esp8266\tools\mkspiffs\0.2.0\mkspiffs.exe
 
 python C:\Users\dchiarad\.arduinocdt\packages\esp8266\hardware\esp8266\2.3.0\tools\espota.py -i 192.168.178.22 -s -f "spiffs-image.bin"
 
-REM rmdir /S /Q data_bin
+rmdir /S /Q data_bin
 pause

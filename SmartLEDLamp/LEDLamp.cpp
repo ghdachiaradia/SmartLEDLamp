@@ -76,7 +76,6 @@ long sensorValue = 0;
 
 long lmillis = 0;
 uint8_t lastButton = 0;
-int r = 255, g = 255, b = 255;
 float brightness = 1.0f;
 
 String lampHostname;
@@ -91,6 +90,8 @@ float curVal = 0.0f;
 
 long lastSensorBurstRead = 0;
 long lastMillis = 0;
+
+CRGB solidColor = CRGB::Wheat;
 
 void onButton(uint8_t btn);
 void onColor(int color1Rgb, int color2Rgb, int color3Rgb);
@@ -286,9 +287,7 @@ void switchApp(App* pApp) {
 
 	pCurrentApp = pApp;
 
-	if (pCurrentApp) {
-		update();
-	}
+	update();
 }
 
 void readConfiguration() {
@@ -419,7 +418,7 @@ void update() {
 		if (pCurrentApp) {
 			pCurrentApp->update();
 		} else {
-			matrix.fill(r, g, b);
+			matrix.fill(solidColor);
 		}
 	} else {
 		matrix.clear();
@@ -469,188 +468,9 @@ void onButton(uint8_t btn) {
 		isPlaying = !isPlaying;
 		delay(200);
 		break;
-
-	case BTN_R:
-		switchApp(NULL);
-		g = b = 0;
-		r = 0xff;
-		update();
-		break;
-	case BTN_G:
-		switchApp(NULL);
-		r = b = 0;
-		g = 0xff;
-		update();
-		break;
-	case BTN_B:
-		switchApp(NULL);
-		r = g = 0;
-		b = 0xff;
-		update();
-		break;
-	case BTN_W:
-		switchApp(NULL);
-		r = g = b = 0xff;
-		update();
-		break;
-
-	case 9:
-		switchApp(NULL);
-		r = 0xf5;
-		g = 0x28;
-		b = 0x0a;
-		update();
-		break;
-	case 10:
-		switchApp(NULL);
-		r = 0x00;
-		g = 0xff;
-		b = 0x14;
-		update();
-		break;
-	case 11:
-		switchApp(NULL);
-		r = 0x19;
-		g = 0x19;
-		b = 0xff;
-		update();
-		break;
-	case 12:
-		switchApp(NULL);
-		r = 0xf5;
-		g = 0x69;
-		b = 0x1e;
-		update();
-		break;
-
-	case 13:
-		switchApp(NULL);
-		r = 0xff;
-		g = 0x28;
-		b = 0x0f;
-		update();
-		break;
-	case 14:
-		switchApp(NULL);
-		r = 0x00;
-		g = 0x7d;
-		b = 0x69;
-		update();
-		break;
-	case 15:
-		switchApp(NULL);
-		r = 0x00;
-		g = 0x00;
-		b = 0x14;
-		update();
-		break;
-	case 16:
-		switchApp(NULL);
-		r = 0xf5;
-		g = 0x69;
-		b = 0x1e;
-		update();
-		break;
-
-	case 17:
-		switchApp(NULL);
-		r = 0xf5;
-		g = 0x28;
-		b = 0x0a;
-		update();
-		break;
-	case 18:
-		switchApp(NULL);
-		r = 0x00;
-		g = 0x46;
-		b = 0x37;
-		update();
-		break;
-	case 19:
-		switchApp(NULL);
-		r = 0xb4;
-		g = 0x00;
-		b = 0x69;
-		update();
-		break;
-	case 20:
-		switchApp(NULL);
-		r = 0x4b;
-		g = 0x55;
-		b = 0xff;
-		update();
-		break;
-
-	case 21:
-		switchApp(NULL);
-		r = 0xfa;
-		g = 0xec;
-		b = 0x00;
-		update();
-		break;
-	case 22:
-		switchApp(NULL);
-		r = 0x00;
-		g = 0x23;
-		b = 0x0a;
-		update();
-		break;
-	case 23:
-		switchApp(NULL);
-		r = 0xe6;
-		g = 0x00;
-		b = 0x37;
-		update();
-		break;
-	case 24:
-		switchApp(NULL);
-		r = 0x4b;
-		g = 0x55;
-		b = 0xff;
-		update();
-		break;
-
-	case BTN_RED_UP:
-		r += 5;
-		if (r > 255)
-			r = 255;
-		update();
-		break;
-	case BTN_RED_DOWN:
-		r -= 5;
-		if (r < 0)
-			r = 0;
-		update();
-		break;
-	case BTN_GREEN_UP:
-		g += 5;
-		if (g > 255)
-			g = 255;
-		update();
-		break;
-	case BTN_GREEN_DOWN:
-		g -= 5;
-		if (g < 0)
-			g = 0;
-		update();
-		break;
-	case BTN_BLUE_UP:
-		b += 5;
-		if (b > 255)
-			b = 255;
-		update();
-		break;
-	case BTN_BLUE_DOWN:
-		b -= 5;
-		if (b < 0)
-			b = 0;
-		update();
-		break;
-
 	case BTN_FLASH:
 		switchApp(pVisApp5);
 		break;
-
 	case BTN_JUMP3:
 		switchApp(pVisApp1);
 		break;
@@ -664,6 +484,9 @@ void onButton(uint8_t btn) {
 		//switchApp(pVisApp4);
 		switchApp(pVisApp6);
 		break;
+	case BTN_SOLID:
+		switchApp(NULL);
+		break;
 	}
 
 }
@@ -671,6 +494,13 @@ void onButton(uint8_t btn) {
 void onColor(int color1Hsv, int color2Hsv, int color3Hsv) {
 	if (pCurrentApp) {
 		pCurrentApp->setColor(color1Hsv * 0.698, color2Hsv * 0.698, color3Hsv * 0.698);
+	}
+	else {
+		CHSV hsv = CHSV(color1Hsv * 0.698, 255, 255);
+		CRGB rgb;
+		hsv2rgb_rainbow(hsv, rgb);
+		solidColor = rgb;
+		matrix.fill(solidColor);
 	}
 }
 

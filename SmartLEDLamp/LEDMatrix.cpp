@@ -21,14 +21,14 @@ void LEDMatrix::init() {
 }
 
 void LEDMatrix::clear() {
-	fill(0, 0, 0);
+	fill(CRGB::Black);
 }
 
-void LEDMatrix::fill(uint8_t r, uint8_t g, uint8_t b) {
+void LEDMatrix::fill(CRGB color) {
 	for (uint16_t i = 0; i < noPixels; ++i) {
-		pPixels[i].r = r;
-		pPixels[i].g = g;
-		pPixels[i].b = b;
+		pPixels[i].r = color.r;
+		pPixels[i].g = color.g;
+		pPixels[i].b = color.b;
 	}
 	update();
 }

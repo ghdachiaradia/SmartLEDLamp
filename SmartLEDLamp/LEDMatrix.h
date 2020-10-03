@@ -14,7 +14,7 @@ public:
 	void setPixel(int16_t x, int16_t y, uint8_t r, uint8_t g, uint8_t b);
 
 	void clear();
-	void fill(uint8_t r, uint8_t g, uint8_t b);
+	void fill(CRGB color);
 	void update();
 
 	void flip();

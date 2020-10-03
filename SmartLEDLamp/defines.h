@@ -47,5 +47,6 @@
 #define BTN_JUMP7 42
 #define BTN_FADE3 43
 #define BTN_FADE7 44
+#define BTN_SOLID 45
 
 #endif /* DEFINES_H_ */
