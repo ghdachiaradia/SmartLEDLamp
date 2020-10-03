@@ -3,8 +3,10 @@
 <head>
     <link rel="stylesheet" href="resources/bs.min.css">
     <link rel="stylesheet" href="resources/style.css">
+    <link rel="stylesheet" href="resources/nano.min.css">
     <script src="resources/jq-3.1.1.min.js"></script>
     <script src="resources/bs.min.js"></script>
+    <script src="resources/pickr.min.js"></script>
     <meta name="viewport" content="width=600, initial-scale=1">
 
     <script>
@@ -16,6 +18,37 @@
         function changeBrightness(value) {
             jQuery.ajax("http://" + location.host + "/action/?brightness=" + value);
             return false;
+        }
+
+        function sendColor(value) {
+            jQuery.ajax("http://" + location.host + "/action/?color=" + value + ',' + value + ',' + value);
+            return false;
+        }
+
+
+        function selectColor(button) {
+            const pickr = Pickr.create({
+                el: button,
+                theme: 'nano', // or 'monolith', or 'nano',
+                useAsButton: true,
+                components: {
+                    // Main components
+                    preview: true,
+                    hue: true,
+
+                    interaction: {
+                        save: true
+                    }
+                }
+            });
+
+            pickr.on('save', (color, instance) => {
+                button.style.background = color.toHEXA();
+                pickr.hide();
+                console.log(color.toHSLA());
+                sendColor(color.toHSLA()[0]);
+            })
+            pickr.show();
         }
 
     </script>
@@ -60,6 +93,12 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-secondary btn-circle" onclick="selectColor(this)"><b>Color 1</b></button>
+            </div>
+
+        </div>
+        <div class="row">
             <div class="col-sm-12" style="text-align:center">
                 <b>Brightness</b>
             </div>
@@ -72,4 +111,5 @@
         </div>
     </div>
 </body>
+
 </html>
