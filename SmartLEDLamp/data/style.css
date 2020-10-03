@@ -1,34 +1,35 @@
-.space
+.container
 {
-	width: 20px; 
-	display: inline-block
+	max-width: 500px;
+	border: 1px solid;
+	padding-bottom: 20px;
+	border-radius: 20px;
+	margin-top: 20px;
+} 
+
+.row 
+{
+	margin-top: 10px;
 }
 
-
-#sliders
+b
 {
-	width: 100%;
-	text-align:	center;
-	font-family: Arial
+	font-size: 20;
 }
 
-#communication-diagnostics
+.btn-circle 
 {
-	width: 100%;
-	text-align:	left;
-	font-family: Arial
+    width: 80px;
+    height: 80px;
+    padding: 6px 0px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
 }
 
-#connection-status
+.slider 
 {
 	width: 100%;
-	text-align:	left;
-	font-family: Arial
-}
-
-#message-diagnostics
-{
-	width: 100%;
-	text-align:	left;
-	font-family: Arial
+	
 }
