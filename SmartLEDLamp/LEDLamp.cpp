@@ -237,7 +237,9 @@ void startWebServer() {
 	server.on("/action/", handleAction);
 	server.begin();
 
-	server.serveStatic("/", SPIFFS, "/", "no-cache");
+	server.serveStatic("/resources", SPIFFS, "/resources", "max-age=86400");
+	server.serveStatic("/", SPIFFS, "/control.html");
+	server.serveStatic("/config.html", SPIFFS, "/config.html");
 
 	Logger.info("HTTP server started");
 
