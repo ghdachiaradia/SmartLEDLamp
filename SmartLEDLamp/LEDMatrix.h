@@ -29,6 +29,10 @@ public:
 		return height;
 	}
 
+	inline int getBrightness() {
+		return brightness * 100;
+	}
+
 	inline void setYOffset(uint8_t offset) {
 		if (offset > height) {
 			offset = height;

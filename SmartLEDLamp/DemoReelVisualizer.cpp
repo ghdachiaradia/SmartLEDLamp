@@ -6,6 +6,13 @@ DemoReelVisualizer::DemoReelVisualizer() {
 DemoReelVisualizer::~DemoReelVisualizer() {
 }
 
+std::vector<ButtonMapping> DemoReelVisualizer::getButtonMappings() {
+	std::vector<ButtonMapping> vector = std::vector<ButtonMapping>();
+	vector.push_back(ButtonMapping(RED_FUNCTION, "Pattern"));
+
+	return vector;
+}
+
 void DemoReelVisualizer::computeImage() {
 	EVERY_N_MILLISECONDS(20) {
 		hue++;
@@ -50,7 +57,7 @@ void DemoReelVisualizer::sinelon() {
 	CHSV chsv = CHSV(hue, 255, 192);
 
 	if (lastPos != -1) {
-		for (int i = min(lastPos, pos); i < max(lastPos,pos); ++i)
+		for (int i = std::min(lastPos, pos); i < std::max(lastPos,pos); ++i)
 		{
 			leds[i] += chsv;
 		}

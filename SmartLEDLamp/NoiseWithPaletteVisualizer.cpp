@@ -16,6 +16,15 @@ void NoiseWithPaletteVisualizer::computeImage() {
 	mapNoiseToLEDsUsingPalette();
 }
 
+std::vector<ButtonMapping> NoiseWithPaletteVisualizer::getButtonMappings() {
+	std::vector<ButtonMapping> vector = std::vector<ButtonMapping>();
+	vector.push_back(ButtonMapping(RED_FUNCTION, "Color Profile"));
+	vector.push_back(ButtonMapping(BLUE_FUNCTION, "Scale"));
+	vector.push_back(ButtonMapping(SPEED_FUNCTION, "Speed"));
+
+	return vector;
+}
+
 void NoiseWithPaletteVisualizer::fillnoise8() {
 	// If we're running at a low "speed", some 8-bit artifacts become visible
 	// from frame-to-frame.  In order to reduce this, we can do some fast data-smoothing.

@@ -10,6 +10,7 @@ public:
 
 	virtual void start();
 	virtual void stop();
+	virtual std::vector<ButtonMapping> getButtonMappings();
 
 	virtual boolean onButtonPressed(uint8_t button);
 

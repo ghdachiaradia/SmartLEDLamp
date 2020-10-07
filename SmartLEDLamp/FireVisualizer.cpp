@@ -1,10 +1,23 @@
 #include "FireVisualizer.h"
+#include "ButtonMapping.h"
 
 FireVisualizer::FireVisualizer() :
 		cooling(95), sparking(200), paletteNo(0), paletteMax(240) {
 }
 
 FireVisualizer::~FireVisualizer() {
+}
+
+
+std::vector<ButtonMapping> FireVisualizer::getButtonMappings() {
+	std::vector<ButtonMapping> vector = std::vector<ButtonMapping>();
+
+	vector.push_back(ButtonMapping(RED_FUNCTION, "Cooling"));
+	vector.push_back(ButtonMapping(GREEN_FUNCTION, "Sparkling"));
+	vector.push_back(ButtonMapping(BLUE_FUNCTION, "Heat"));
+	vector.push_back(ButtonMapping(SPEED_FUNCTION, "Speed"));
+
+	return vector;
 }
 
 void FireVisualizer::computeImage() {

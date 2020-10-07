@@ -37,6 +37,11 @@ void VisualizerApp::setColor(int color1Hsv, int color2Hsv, int color3Hsv) {
 	}
 }
 
+std::vector<ButtonMapping> VisualizerApp::getButtonMappings() {
+	//TODO: Concept of multiple visualizers not required.
+	return visualizers[0]->getButtonMappings();
+}
+
 boolean VisualizerApp::onButtonPressed(uint8_t button) {
 	boolean handled = false;
 

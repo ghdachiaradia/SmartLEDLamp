@@ -9,6 +9,7 @@
 #include <pins_arduino.h>
 #include <cstdint>
 #include <ArduinoOTA.h>
+#include <vector>
 #include "defines.h"
 #ifdef IR_ENABLE
 #include <IRremoteESP8266.h>
@@ -60,7 +61,7 @@ long irCodes[] = { 0xff3ac5, 0xffba45, 0xff827d, 0xff02fd, 0xff1ae5, 0xff9a65,
 boolean isOn = false;
 boolean isPlaying = true;
 
-App* pCurrentApp = NULL;
+VisualizerApp* pCurrentApp = NULL;
 VisualizerApp* pVisApp1;
 VisualizerApp* pVisApp2;
 VisualizerApp* pVisApp3;
@@ -96,7 +97,7 @@ CRGB solidColor = CRGB::Wheat;
 void onButton(uint8_t btn);
 void onColor(int color1Rgb, int color2Rgb, int color3Rgb);
 void update();
-void switchApp(App* pApp);
+void switchApp(VisualizerApp* pApp);
 void writeConfiguration();
 
 void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence,
@@ -170,15 +171,35 @@ void handleAction() {
 
 	String brightness = server.arg("brightness");
 	if (brightness.length() != 0) {
-		long bghtness = brightness.toInt();
+		long brightnessValue = brightness.toInt();
 
-		if (bghtness >= 1 && bghtness <= 100) {
-			matrix.setBrightness((float) (bghtness / 100.0));
+		if (brightnessValue >= 1 && brightnessValue <= 100) {
+			matrix.setBrightness((float) (brightnessValue / 100.0));
 			update();
 		}
 	}
 
-	server.send(200, "text/plain", "OK");
+
+	String buttonJson = "";
+	if (pCurrentApp) {
+		std::vector<ButtonMapping> buttonMappings = pCurrentApp->getButtonMappings();
+
+		if (!buttonMappings.empty()) {
+			for (int i = 0; i < buttonMappings.size(); i++) {
+				ButtonMapping mapping = buttonMappings.at(i);
+				buttonJson.concat("{\"function\":\""+ mapping.getButtonIdentifier() + "\", \"label\":\"" + mapping.functionName + "\"}");
+
+				if (i + 1 < buttonMappings.size()) {
+					buttonJson.concat(",");
+				}
+			}
+		}
+	}
+
+	String payload = String(
+			"{ \"mode\": \"TODO\", \"brightness\":\"" + String(matrix.getBrightness()) + "\", \"buttons\":[" + buttonJson + "]}");
+
+	server.send(200, "text/plain", payload);
 }
 
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t* payload,
@@ -277,7 +298,7 @@ void setupOTA() {
 	ArduinoOTA.begin();
 }
 
-void switchApp(App* pApp) {
+void switchApp(VisualizerApp* pApp) {
 	if (pCurrentApp) {
 		pCurrentApp->stop();
 	}

@@ -5,6 +5,8 @@
 #include "FastLED.h"
 #include "Visualizer.h"
 #include "defines.h"
+#include "ButtonMapping.h"
+#include <vector>
 
 extern const TProgmemRGBPalette16 HeatColorsBlue_p FL_PROGMEM;
 extern const TProgmemRGBPalette16 HeatColorsGreen_p FL_PROGMEM;
@@ -16,6 +18,7 @@ public:
 
 	virtual void start();
 	virtual void stop();
+	virtual std::vector<ButtonMapping> getButtonMappings();
 
 	virtual boolean onButtonPressed(uint8_t button);
 

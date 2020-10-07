@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 #include "defines.h"
+#include "ButtonMapping.h"
+#include <vector>
 
 class Visualizer {
 public:
@@ -23,6 +25,12 @@ public:
 	virtual boolean onButtonPressed(uint8_t button) {
 		return false;
 	}
+
+	virtual std::vector<ButtonMapping> getButtonMappings() {
+		return std::vector<ButtonMapping>();
+	}
+
+//	virtual supported
 
 protected:
 	int8_t speed;

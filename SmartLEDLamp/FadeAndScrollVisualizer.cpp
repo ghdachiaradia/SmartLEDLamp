@@ -10,6 +10,14 @@ FadeAndScrollVisualizer::FadeAndScrollVisualizer(uint8_t _fsSpeed,
 FadeAndScrollVisualizer::~FadeAndScrollVisualizer() {
 }
 
+std::vector<ButtonMapping> FadeAndScrollVisualizer::getButtonMappings() {
+	std::vector<ButtonMapping> vector = std::vector<ButtonMapping>();
+	vector.push_back(ButtonMapping(BLUE_FUNCTION, "Zoom"));
+	vector.push_back(ButtonMapping(SPEED_FUNCTION, "Speed"));
+
+	return vector;
+}
+
 void FadeAndScrollVisualizer::computeImage() {
 	for (int x = 0; x < LEDS_WIDTH; x++) {
 		for (int y = 0; y < LEDS_HEIGHT; y++) {

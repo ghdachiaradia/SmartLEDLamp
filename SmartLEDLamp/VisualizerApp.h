@@ -15,6 +15,7 @@ public:
 	virtual void update();
 	virtual void stop();
 
+	virtual std::vector<ButtonMapping> getButtonMappings();
 	virtual boolean onButtonPressed(uint8_t button);
 
 	void setVisualizer(uint8_t idx, Visualizer* pVisualizer);

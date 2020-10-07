@@ -11,7 +11,14 @@
 
     <script>
         function clickButton(btn) {
-            jQuery.ajax("http://" + location.host + "/action/?btn=" + btn);
+            // Local testing
+            //handleResponse(JSON.parse('{ "mode": "TODO", "brightness": "20", "buttons":[{"function":"function1", "label":"Cooling"}, {"function":"function2", "label":"Sparkling"},{"function":"function3", "label":"Heat"}, {"function":"function4", "label":"Speed"}]}'))
+            jQuery.ajax(
+                {
+                    url: "http://" + location.host + "/action/?btn=" + btn,
+                    success: handleResponse,
+                    dataType: "json"
+                });
             return false;
         }
 
@@ -23,6 +30,27 @@
         function sendColor(value) {
             jQuery.ajax("http://" + location.host + "/action/?color=" + value + ',' + value + ',' + value);
             return false;
+        }
+
+        function clearFunctionButtonLabels() {
+            for (const button of $('[class^=function]')) {
+                button.innerText = 'N/A';
+            }
+        }
+
+        function handleResponse(response) {
+            console.log(response);
+            clearFunctionButtonLabels();
+            if (response && response.buttons) {
+                for (const buttonSetting of response.buttons) {
+                    for (const button of $('.' + buttonSetting.function)) {
+                        console.log(button);
+                        button.innerText = buttonSetting.label;
+                    }
+                }
+            }
+
+            $('#brightness').val(response.brightness);
         }
 
 
@@ -55,51 +83,167 @@
 </head>
 
 <body>
+    <svg style="display: none;" x="0px" y="0px" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <symbol id="plusButton" viewBox="0 0 512 512">
+            <path style="fill: white;"
+                d="M492,236H276V20c0-11.046-8.954-20-20-20c-11.046,0-20,8.954-20,20v216H20c-11.046,0-20,8.954-20,20s8.954,20,20,20h216
+                                    v216c0,11.046,8.954,20,20,20s20-8.954,20-20V276h216c11.046,0,20-8.954,20-20C512,244.954,503.046,236,492,236z" />
+        </symbol>
+    </svg>
+
+    <svg x="0px" y="0px" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
+        <symbol id="minusButton" viewBox="0 0 512 512">
+            <path style="fill: white;"
+                d="M492,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,236,492,236z" />
+        </symbol>
+    </svg>
+
     <i class="fas fa-power-off"></i>
     <div class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(3)">
-                    <img src="resources/pause.svg" height="70%">
+                    <!-- <img src="resources/pause.svg" height="70%"> -->
+                    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="49px" viewBox="0 0 512 512"
+                        style="enable-background:new 0 0 512 512; fill: white;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M437.019,74.98C388.667,26.629,324.38,0,256,0C187.619,0,123.332,26.629,74.98,74.98C26.629,123.332,0,187.619,0,256
+			s26.629,132.668,74.98,181.02C123.332,485.371,187.619,512,256,512c68.38,0,132.667-26.629,181.019-74.98
+			C485.371,388.668,512,324.38,512,256S485.371,123.332,437.019,74.98z M256,482C131.383,482,30,380.617,30,256S131.383,30,256,30
+			s226,101.383,226,226S380.617,482,256,482z" />
+                            </g>
+                        </g>
+                        <g>
+                            #<g>
+                                <path d="M304.199,137.723c-8.284,0-15,6.716-15,15V359.28c0,8.284,6.716,15,15,15s15-6.716,15-15V152.723
+			C319.199,144.439,312.483,137.723,304.199,137.723z" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path d="M207.799,137.723c-8.284,0-15,6.716-15,15V359.28c0,8.284,6.716,15,15,15s15-6.716,15-15V152.723
+			C222.799,144.439,216.083,137.723,207.799,137.723z" />
+                            </g>
+                        </g>
+                    </svg>
                 </button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle btn-danger" onclick="clickButton(4)">
-                    <img src="resources/off.svg" height="70%">
+                    <svg viewBox="-44 10 512 512" width="40pt" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="m211.863281 512c-116.820312 0-211.863281-95.035156-211.863281-211.863281 0-95.152344 64.007812-179.171875 155.664062-204.328125 9.386719-2.53125 19.109376 2.949218 21.699219 12.363281 2.574219 9.398437-2.949219 19.121094-12.355469 21.691406-76.359374 20.964844-129.699218 90.980469-129.699218 170.273438 0 97.34375 79.199218 176.554687 176.554687 176.554687 97.351563 0 176.550781-79.210937 176.550781-176.554687 0-77.429688-51.757812-146.996094-125.863281-169.171875-9.34375-2.792969-14.644531-12.636719-11.851562-21.980469 2.800781-9.328125 12.664062-14.621094 21.972656-11.84375 88.9375 26.617187 151.050781 110.082031 151.050781 202.996094 0 116.828125-95.039062 211.863281-211.859375 211.863281zm0 0" />
+                        <path
+                            d="m211.863281 229.515625c-9.75 0-17.65625-7.894531-17.65625-17.652344v-194.207031c0-9.761719 7.90625-17.65625 17.65625-17.65625s17.652344 7.894531 17.652344 17.65625v194.207031c0 9.757813-7.902344 17.652344-17.652344 17.652344zm0 0" />
+                    </svg>
                 </button>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(40)"><b>Noise</b></button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(42)"><b>Fire</b></button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(41)"><b>Fade</b></button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(44)"><b>Glow</b></button>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(43)"><b>Demo</b></button>
             </div>
-            <div class="col-sm">
+            <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="clickButton(45)"><b>Solid</b></button>
+            </div>
+            <div class="col-sm text-sm-center">
+                <button class="btn btn-secondary btn-circle" onclick="selectColor(this)"><b>Color 1</b></button>
+            </div>
+            <div class="col-sm text-sm-center"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm text-sm-center">
+                <b class="function1">N/A</b>
+            </div>
+            <div class="col-sm text-sm-center">
+                <b class="function2">N/A</b>
+            </div>
+            <div class="col-sm text-sm-center">
+                <b class="function3">N/A</b>
+            </div>
+            <div class="col-sm text-sm-center">
+                <b class="function4">N/A</b>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm">
-                <button class="btn btn-secondary btn-circle" onclick="selectColor(this)"><b>Color 1</b></button>
-            </div>
 
+            <div class="col-sm text-sm-center">
+                <button id="function1Up" class="btn btn-secondary btn-circle" onclick="clickButton(25)">
+                    <svg width="38" height="38">
+                        <use href="#plusButton" />
+                    </svg>
+                </button>
+            </div>
+            <div class="col-sm text-sm-center">
+                <button id="function2Up" class="btn btn-secondary btn-circle" onclick="clickButton(26)">
+                    <svg width="38" height="38">
+                        <use href="#plusButton" />
+                    </svg>
+                </button>
+            </div>
+            <div class="col-sm text-sm-center">
+                <button id="function3Up" class="btn btn-secondary btn-circle" onclick="clickButton(27)">
+                    <svg width="38" height="38">
+                        <use href="#plusButton" />
+                    </svg>
+                </button>
+            </div>
+            <div class="col-sm text-sm-center   ">
+                <button id="function4Up" class="btn btn-secondary btn-circle" onclick="clickButton(28)">
+                    <svg width="38" height="38">
+                        <use href="#plusButton" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm text-sm-center">
+                <button id="function1Down" class="btn btn-secondary btn-circle" onclick="clickButton(29)">
+                    <svg width="38" height="38">
+                        <use href="#minusButton" />
+                    </svg>
+                </button>
+            </div>
+            <div class="col-sm text-sm-center">
+                <button id="function2Down" class="btn btn-secondary btn-circle" onclick="clickButton(30)"><svg
+                        width="38" height="38">
+                        <use href="#minusButton" />
+                    </svg>
+                </button>
+            </div>
+            <div class="col-sm text-sm-center">
+                <button id="function3Down" class="btn btn-secondary btn-circle" onclick="clickButton(31)"><svg
+                        width="38" height="38">
+                        <use href="#minusButton" />
+                    </svg></button>
+            </div>
+            <div class="col-sm text-sm-center">
+                <button id="function4Down" class="btn btn-secondary btn-circle" onclick="clickButton(32)"><svg
+                        width="38" height="38">
+                        <use href="#minusButton" />
+                    </svg></button>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12" style="text-align:center">
@@ -108,7 +252,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange"
+                <input type="range" min="1" max="100" value="100" class="slider" id="brightness"
                     onchange="changeBrightness(this.value)">
             </div>
         </div>
