@@ -5,7 +5,7 @@
 
 class App {
 public:
-	App(LEDMatrix* pLEDMatrix);
+	App(LEDMatrix* pLEDMatrix, String name);
 	virtual ~App();
 
 	virtual void start() {
@@ -24,12 +24,12 @@ public:
 	virtual void run() = 0;
 	virtual void update() = 0;
 
-	const char* getName() const {
+	const String getName() const {
 		return name;
 	}
 
 protected:
-	const char* name;
+	String name;
 	LEDMatrix *pMatrix;
 };
 

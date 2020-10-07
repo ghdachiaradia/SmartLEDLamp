@@ -10,9 +10,17 @@
     <meta name="viewport" content="width=600, initial-scale=1">
 
     <script>
+        function init() {
+            jQuery.ajax(
+                {url: "http://" + location.host + "/action/",
+                 success: handleResponse,
+                 dataType: "json"
+                });
+        }
+
         function clickButton(btn) {
             // Local testing
-            //handleResponse(JSON.parse('{ "mode": "TODO", "brightness": "20", "buttons":[{"function":"function1", "label":"Cooling"}, {"function":"function2", "label":"Sparkling"},{"function":"function3", "label":"Heat"}, {"function":"function4", "label":"Speed"}]}'))
+            //handleResponse(JSON.parse('{ "mode": "Fire", "brightness": "20", "buttons":[{"function":"function1", "label":"Cooling"}, {"function":"function2", "label":"Sparkling"},{"function":"function3", "label":"Heat"}, {"function":"function4", "label":"Speed"}]}'))
             jQuery.ajax(
                 {
                     url: "http://" + location.host + "/action/?btn=" + btn,
@@ -51,6 +59,11 @@
             }
 
             $('#brightness').val(response.brightness);
+            $('.btn-primary').addClass('btn-secondary');
+            $('.btn-primary').removeClass('btn-primary');
+
+            $('#' + response.mode).addClass('btn-primary');
+            $('#' + response.mode).removeClass('btn-secondary');
         }
 
 
@@ -82,7 +95,7 @@
     </script>
 </head>
 
-<body>
+<body onload="init()">
     <svg style="display: none;" x="0px" y="0px" style="enable-background:new 0 0 512 512;" xml:space="preserve">
         <symbol id="plusButton" viewBox="0 0 512 512">
             <path style="fill: white;"
@@ -148,24 +161,24 @@
         </div>
         <div class="row">
             <div class="col-sm text-sm-center">
-                <button class="btn btn-secondary btn-circle" onclick="clickButton(40)"><b>Noise</b></button>
+                <button id="Noise" class="btn btn-secondary btn-circle" onclick="clickButton(40)"><b>Noise</b></button>
             </div>
             <div class="col-sm text-sm-center">
-                <button class="btn btn-secondary btn-circle" onclick="clickButton(42)"><b>Fire</b></button>
+                <button id="Fire" class="btn btn-secondary btn-circle" onclick="clickButton(42)"><b>Fire</b></button>
             </div>
             <div class="col-sm text-sm-center">
-                <button class="btn btn-secondary btn-circle" onclick="clickButton(41)"><b>Fade</b></button>
+                <button id="Fade" class="btn btn-secondary btn-circle" onclick="clickButton(41)"><b>Fade</b></button>
             </div>
             <div class="col-sm text-sm-center">
-                <button class="btn btn-secondary btn-circle" onclick="clickButton(44)"><b>Glow</b></button>
+                <button id="Glow" class="btn btn-secondary btn-circle" onclick="clickButton(44)"><b>Glow</b></button>
             </div>
         </div>
         <div class="row">
             <div class="col-sm text-sm-center">
-                <button class="btn btn-secondary btn-circle" onclick="clickButton(43)"><b>Demo</b></button>
+                <button id="Demo" class="btn btn-secondary btn-circle" onclick="clickButton(43)"><b>Demo</b></button>
             </div>
             <div class="col-sm text-sm-center">
-                <button class="btn btn-secondary btn-circle" onclick="clickButton(45)"><b>Solid</b></button>
+                <button id="Solid" class="btn btn-secondary btn-circle" onclick="clickButton(45)"><b>Solid</b></button>
             </div>
             <div class="col-sm text-sm-center">
                 <button class="btn btn-secondary btn-circle" onclick="selectColor(this)"><b>Color 1</b></button>

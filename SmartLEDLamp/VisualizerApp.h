@@ -6,7 +6,7 @@
 
 class VisualizerApp: public App {
 public:
-	VisualizerApp(LEDMatrix* pLEDMatrix);
+	VisualizerApp(LEDMatrix* pLEDMatrix, String name);
 	virtual ~VisualizerApp();
 
 	virtual void start();

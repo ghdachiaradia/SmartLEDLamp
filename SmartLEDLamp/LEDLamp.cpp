@@ -181,6 +181,7 @@ void handleAction() {
 
 
 	String buttonJson = "";
+	String mode = "Solid";
 	if (pCurrentApp) {
 		std::vector<ButtonMapping> buttonMappings = pCurrentApp->getButtonMappings();
 
@@ -194,10 +195,12 @@ void handleAction() {
 				}
 			}
 		}
+
+		mode = pCurrentApp->getName();
 	}
 
 	String payload = String(
-			"{ \"mode\": \"TODO\", \"brightness\":\"" + String(matrix.getBrightness()) + "\", \"buttons\":[" + buttonJson + "]}");
+			"{ \"mode\": \"" + mode + "\", \"brightness\":\"" + String(matrix.getBrightness()) + "\", \"buttons\":[" + buttonJson + "]}");
 
 	server.send(200, "text/plain", payload);
 }
@@ -404,22 +407,22 @@ void setup() {
 
 	matrix.clear();
 
-	pVisApp1 = new VisualizerApp(&matrix);
+	pVisApp1 = new VisualizerApp(&matrix, "Fade");
 	pVisApp1->setVisualizer(0, new FadeAndScrollVisualizer(1, 20));
 
-	pVisApp2 = new VisualizerApp(&matrix);
+	pVisApp2 = new VisualizerApp(&matrix, "Fire");
 	pVisApp2->setVisualizer(0, new FireVisualizer());
 
-	pVisApp3 = new VisualizerApp(&matrix);
+	pVisApp3 = new VisualizerApp(&matrix, "Demo");
 	pVisApp3->setVisualizer(0, new DemoReelVisualizer());
 
-	pVisApp4 = new VisualizerApp(&matrix);
+	pVisApp4 = new VisualizerApp(&matrix, "VUMeter");
 	pVisApp4->setVisualizer(0, new VUMeterVisualizer(&curVal));
 
-	pVisApp5 = new VisualizerApp(&matrix);
+	pVisApp5 = new VisualizerApp(&matrix, "Noise");
 	pVisApp5->setVisualizer(0, new NoiseWithPaletteVisualizer());
 
-	pVisApp6 = new VisualizerApp(&matrix);
+	pVisApp6 = new VisualizerApp(&matrix, "Glow");
 	pVisApp6->setVisualizer(0, new GlowVisualizer());
 
 

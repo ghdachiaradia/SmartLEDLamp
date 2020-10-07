@@ -1,9 +1,8 @@
 #include "VisualizerApp.h"
 #include "defines.h"
 
-VisualizerApp::VisualizerApp(LEDMatrix* pLEDMatrix) :
-		App(pLEDMatrix), lastMillis(0) {
-	name = "Visualizer";
+VisualizerApp::VisualizerApp(LEDMatrix* pLEDMatrix, String name) :
+		App(pLEDMatrix, name), lastMillis(0) {
 }
 
 VisualizerApp::~VisualizerApp() {
