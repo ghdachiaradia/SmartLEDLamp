@@ -13,7 +13,7 @@ std::vector<ButtonMapping> FireVisualizer::getButtonMappings() {
 	std::vector<ButtonMapping> vector = std::vector<ButtonMapping>();
 
 	vector.push_back(ButtonMapping(RED_FUNCTION, "Cooling"));
-	vector.push_back(ButtonMapping(GREEN_FUNCTION, "Sparkling"));
+	vector.push_back(ButtonMapping(GREEN_FUNCTION, "Sparking"));
 	vector.push_back(ButtonMapping(BLUE_FUNCTION, "Heat"));
 	vector.push_back(ButtonMapping(SPEED_FUNCTION, "Speed"));
 
