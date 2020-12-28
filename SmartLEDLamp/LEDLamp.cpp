@@ -426,7 +426,7 @@ void setup() {
 	pVisApp6->setVisualizer(0, new GlowVisualizer());
 
 
-	switchApp(NULL);
+	switchApp(pVisApp2);
 
 #ifdef IR_ENABLE
 	irrecv.enableIRIn(); // Start the receiver
@@ -435,6 +435,8 @@ void setup() {
 	update();
 
 	pinMode(sensorPin, INPUT);
+
+	onButton(BTN_POWER);
 }
 
 void update() {
@@ -517,9 +519,11 @@ void onButton(uint8_t btn) {
 
 void onColor(int color1Hsv, int color2Hsv, int color3Hsv) {
 	if (pCurrentApp) {
+		Serial.println("Set color on currentApp");
 		pCurrentApp->setColor(color1Hsv * 0.698, color2Hsv * 0.698, color3Hsv * 0.698);
 	}
 	else {
+		Serial.println("Set color as solid");
 		CHSV hsv = CHSV(color1Hsv * 0.698, 255, 255);
 		CRGB rgb;
 		hsv2rgb_rainbow(hsv, rgb);
