@@ -15,7 +15,8 @@ std::vector<ButtonMapping> FireVisualizer::getButtonMappings() {
 	vector.push_back(ButtonMapping(RED_FUNCTION, "Cooling"));
 	vector.push_back(ButtonMapping(GREEN_FUNCTION, "Sparking"));
 	vector.push_back(ButtonMapping(BLUE_FUNCTION, "Heat"));
-	vector.push_back(ButtonMapping(SPEED_FUNCTION, "Speed"));
+	vector.push_back(ButtonMapping(SPEED_FUNCTION, "Renderer"));
+	vector.push_back(ButtonMapping(SHIFT_FUNCTION, "Color"));
 
 	return vector;
 }
@@ -281,32 +282,17 @@ boolean FireVisualizer::onButtonPressed(uint8_t button) {
 		handled = true;
 		break;
 
-	case BTN_DIY1:
-		paletteNo = 0;
+	case BTN_SHIFT_UP:
+		if (paletteNo < MAX_PALETTE_NO) {
+			paletteNo++;
+		}
 		handled = true;
 		break;
-	case BTN_DIY2:
-		paletteNo = 1;
-		handled = true;
-		break;
-	case BTN_DIY3:
-		paletteNo = 2;
-		handled = true;
-		break;
-	case BTN_AUTO:
-		paletteNo = 3;
-		handled = true;
-		break;
-	case BTN_DIY4:
-		paletteNo = 4;
-		handled = true;
-		break;
-	case BTN_DIY5:
-		paletteNo = 5;
-		handled = true;
-		break;
-	case BTN_DIY6:
-		paletteNo = 6;
+
+	case BTN_SHIFT_DOWN:
+		if (paletteNo > 0) {
+			paletteNo--;
+		}
 		handled = true;
 		break;
 	}

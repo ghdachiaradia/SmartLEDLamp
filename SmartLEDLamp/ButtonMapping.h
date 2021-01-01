@@ -8,6 +8,7 @@
 #define GREEN_FUNCTION 2
 #define BLUE_FUNCTION 3
 #define SPEED_FUNCTION 4
+#define SHIFT_FUNCTION 5
 
 class ButtonMapping {
 
@@ -29,6 +30,9 @@ public:
 
 		case SPEED_FUNCTION:
 			return "function4";
+
+		case SHIFT_FUNCTION:
+			return "function5";
 
 		default:
 			return "not defined!";

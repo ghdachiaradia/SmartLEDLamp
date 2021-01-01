@@ -31,22 +31,27 @@
 #define BTN_GREEN_UP 26
 #define BTN_BLUE_UP 27
 #define BTN_QUICK 28
-#define BTN_RED_DOWN 29
-#define BTN_GREEN_DOWN 30
-#define BTN_BLUE_DOWN 31
-#define BTN_SLOW 32
-#define BTN_DIY1 33
-#define BTN_DIY2 34
-#define BTN_DIY3 35
-#define BTN_AUTO 36
-#define BTN_DIY4 37
-#define BTN_DIY5 38
-#define BTN_DIY6 39
-#define BTN_FLASH 40
-#define BTN_JUMP3 41
-#define BTN_JUMP7 42
-#define BTN_FADE3 43
-#define BTN_FADE7 44
-#define BTN_SOLID 45
+#define BTN_SHIFT_UP 29
+
+#define BTN_RED_DOWN 35
+#define BTN_GREEN_DOWN 36
+#define BTN_BLUE_DOWN 37
+#define BTN_SLOW 38
+#define BTN_SHIFT_DOWN 39
+
+
+#define BTN_DIY1 55
+#define BTN_DIY2 56
+#define BTN_DIY3 57
+#define BTN_AUTO 58
+#define BTN_DIY4 59
+#define BTN_DIY5 60
+#define BTN_DIY6 61
+#define BTN_FLASH 62
+#define BTN_JUMP3 63
+#define BTN_JUMP7 64
+#define BTN_FADE3 65
+#define BTN_FADE7 66
+#define BTN_SOLID 67
 
 #endif /* DEFINES_H_ */

@@ -29,7 +29,7 @@ protected:
 	void computeImage3();
 
 private:
-	int8_t rendererId = 0;
+	int8_t rendererId = 1;
 	int8_t paletteNo;
 	int16_t paletteMax;
 	CRGBPalette16 palette[7] = { CRGBPalette16(HeatColors_p), CRGBPalette16(
@@ -42,7 +42,7 @@ private:
 	int16_t sparking;
 
 	uint8_t vImageData[LEDS_WIDTH * LEDS_HEIGHT * 2 * 3];
-
+	const int MAX_PALETTE_NO = 6;
 };
 
 #endif /* FIREVISUALIZER_H_ */
