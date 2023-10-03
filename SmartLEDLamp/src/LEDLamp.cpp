@@ -426,7 +426,9 @@ void setup() {
 	pVisApp6->setVisualizer(0, new GlowVisualizer());
 
 
-	switchApp(NULL);
+	switchApp(pVisApp5);
+	turnOnRunnable.init();
+	pCurrentRunnable = &turnOnRunnable;
 
 #ifdef IR_ENABLE
 	irrecv.enableIRIn(); // Start the receiver
